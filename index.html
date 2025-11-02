@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operation Free DexScreener</title>
-    <link rel="icon" type="image/x-icon" href="dex.png">
+    <link rel="icon" type="image/x-icon" href="clyde.png">
+
     <style>
         * {
             margin: 0;
@@ -245,6 +246,64 @@
             border-radius: 4px;
         }
 
+        .table-container {
+            overflow-x: auto;
+            border: 2px solid #000000;
+            border-radius: 8px;
+        }
+
+        .coins-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+        }
+
+        .coins-table thead {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .coins-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1rem;
+            border-bottom: 2px solid #000000;
+        }
+
+        .coins-table td {
+            padding: 1rem;
+            text-align: left;
+            font-size: 1rem;
+            border-bottom: 1px solid #e5e5e5;
+            color: #333333;
+        }
+
+        .coins-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .coins-table tbody tr:hover:not(.empty-row) {
+            background: #f8f8f8;
+        }
+
+        .empty-row td {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #666666;
+            font-style: italic;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #000000;
+            color: #ffffff;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
         .info-section {
             background: #f8f8f8;
             border-radius: 16px;
@@ -330,6 +389,17 @@
             .docs-content h3 {
                 font-size: 1.3rem;
             }
+
+            .coins-table th,
+            .coins-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .coins-table th:first-child,
+            .coins-table td:first-child {
+                padding-left: 1rem;
+            }
         }
     </style>
 </head>
@@ -345,7 +415,7 @@
             </svg>
             Docs
         </button>
-        <a href="https://x.com/freedexsol" target="_blank" rel="noopener noreferrer" class="x-button">
+        <a href="https://x.com/PumpPoolSolana" target="_blank" rel="noopener noreferrer" class="x-button">
             <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
             </svg>
@@ -440,6 +510,31 @@
             <p>
                 By removing the DexScreener payment barrier, we create a level playing field where every project has the same professional visibility from launch. This community-first approach ensures that good projects aren't held back by financial constraints, but can compete based on their merits and community support.
             </p>
+        </div>
+
+        <div class="info-section" style="margin-top: 2rem;">
+            <h2>DexScreener Paid Coins</h2>
+            <p style="margin-bottom: 2rem;">
+                Track all coins that have received automatic DexScreener listings through our platform.
+            </p>
+            
+            <div class="table-container">
+                <table class="coins-table">
+                    <thead>
+                        <tr>
+                            <th>Token Name</th>
+                            <th>Symbol</th>
+                            <th>Date Listed</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coinsTableBody">
+                        <tr class="empty-row">
+                            <td colspan="4">No coins listed yet. Be the first to bond and get free DexScreener listing!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
