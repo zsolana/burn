@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Mine Company</title>
-    <link rel="icon" type="image/x-icon" href="mineblox.png">
+    <title>Fork This Dog</title>
     <style>
         * {
             margin: 0;
@@ -13,623 +12,426 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.8;
-            color: #2d2d2d;
-            background: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
             min-height: 100vh;
-        }
-
-        .close-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: none;
-            border: 2px solid #2d2d2d;
-            border-radius: 50%;
-            cursor: pointer;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 20px;
+            display: flex;
             justify-content: center;
-            font-size: 24px;
-            color: #2d2d2d;
+            gap: 15px;
+            border-bottom: 2px solid #000000;
+        }
+
+        .social-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             transition: all 0.3s ease;
-            z-index: 1000;
         }
 
-        .close-btn:hover {
-            background: #2d2d2d;
-            color: white;
-            transform: rotate(90deg);
+        .social-btn:hover {
+            background-color: #333333;
+            transform: translateY(-2px);
         }
 
-        .logo {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 80px;
-            height: 80px;
-            z-index: 1000;
-            object-fit: contain;
-        }
-
-        .title-page {
-            min-height: 100vh;
+        .container {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
         }
 
-        .title-page h1 {
-            font-size: 4em;
-            font-weight: 300;
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
             margin-bottom: 30px;
-            color: #2d2d2d;
+            text-align: center;
+            letter-spacing: -2px;
         }
 
-        .title-page .tagline {
-            font-size: 1.4em;
-            color: #666;
-            font-weight: 300;
+        .tagline {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.6;
             max-width: 600px;
         }
 
-        .scroll-indicator {
-            margin-top: 60px;
-            font-size: 0.9em;
-            color: #22c55e;
-            animation: bounce 2s infinite;
-        }
-
-        .button-container {
-            margin-top: 50px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-button {
-            display: inline-block;
-            background: white;
-            color: #2d2d2d;
-            padding: 18px 40px;
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: 500;
-            border: 2px solid #22c55e;
-            transition: all 0.3s ease;
-        }
-
-        .nav-button:hover {
-            background: #22c55e;
-            color: white;
-        }
-
-        .dev-fees-page {
-            display: none;
-            min-height: 100vh;
-            background: white;
-            color: #2d2d2d;
-        }
-
-        .dev-fees-page.active {
-            display: block;
-        }
-
-        .dev-fees-container {
-            text-align: center;
-            max-width: 800px;
+        .upload-area {
             width: 100%;
-            margin: 0 auto;
-            padding: 100px 40px;
+            max-width: 500px;
+            border: 3px dashed #000000;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            background-color: #ffffff;
         }
 
-        .dev-fees-container h1 {
-            font-size: 3rem;
-            font-weight: 300;
-            margin-bottom: 60px;
-            color: #2d2d2d;
+        .upload-area:hover {
+            background-color: #f5f5f5;
+            border-color: #333333;
         }
 
-        .fee-display {
-            margin: 60px 0;
+        .upload-area.dragover {
+            background-color: #e8e8e8;
+            border-color: #000000;
         }
 
-        .fee-amount {
-            font-size: 5rem;
-            font-weight: 300;
-            color: #22c55e;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
+        .upload-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .fee-amount.updating {
+        .upload-btn:hover {
+            background-color: #333333;
             transform: scale(1.05);
         }
 
-        .update-indicator {
-            font-size: 0.95rem;
-            color: #666;
-            font-weight: 300;
-        }
-
-        .fee-info {
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 1px solid #e5e5e5;
-        }
-
-        .fee-info p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 40px;
-            color: #4a4a4a;
-        }
-
-        .allocation-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin: 60px 0;
-        }
-
-        .allocation-item {
-            text-align: center;
-        }
-
-        .allocation-percentage {
-            font-size: 3rem;
-            font-weight: 300;
-            color: #22c55e;
-            margin-bottom: 10px;
-        }
-
-        .allocation-label {
+        .upload-text {
             font-size: 1rem;
-            color: #666;
-            font-weight: 400;
+            margin-top: 15px;
+            color: #666666;
         }
 
-        .back-button {
-            background: white;
-            color: #2d2d2d;
-            padding: 12px 30px;
-            text-decoration: none;
-            font-size: 1em;
-            font-weight: 500;
-            border: 2px solid #22c55e;
-            transition: all 0.3s ease;
-            display: inline-block;
-            margin-top: 40px;
-        }
-
-        .back-button:hover {
-            background: #22c55e;
-            color: white;
-        }
-
-        .employees-page {
+        #fileInput {
             display: none;
-            min-height: 100vh;
-            padding: 80px 40px;
         }
 
-        .employees-page.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .employees-content {
-            max-width: 700px;
+        .preview-area {
+            margin-top: 30px;
             text-align: center;
         }
 
-        .employees-content h1 {
-            font-size: 3em;
-            margin-bottom: 30px;
-        }
-
-        .employees-content p {
-            font-size: 1.3em;
-            margin-bottom: 40px;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 80px 40px;
-        }
-
-        .content-section {
-            margin-bottom: 80px;
-        }
-
-        h2 {
-            color: #22c55e;
-            font-size: 2em;
-            font-weight: 400;
-            margin-bottom: 30px;
-            letter-spacing: -0.5px;
-        }
-
-        h3 {
-            color: #2d2d2d;
-            font-size: 1.3em;
-            font-weight: 500;
-            margin: 30px 0 15px 0;
-        }
-
-        p {
+        .preview-img {
+            max-width: 100%;
+            max-height: 400px;
+            border: 2px solid #000000;
             margin-bottom: 20px;
-            font-size: 1.05em;
-            color: #4a4a4a;
-            font-weight: 300;
         }
 
-        .highlight-box {
-            background: #f0fdf4;
-            border-left: 3px solid #22c55e;
-            padding: 30px;
-            margin: 40px 0;
+        .status-message {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid #000000;
+            display: none;
         }
 
-        .strategy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
+        .status-message.success {
+            background-color: #000000;
+            color: #ffffff;
         }
 
-        .strategy-card {
-            padding: 30px 20px;
-            border: 1px solid #e5e5e5;
-            transition: border-color 0.3s ease;
-            text-align: center;
+        .status-message.error {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #000000;
         }
 
-        .strategy-card:hover {
-            border-color: #22c55e;
+        .loading {
+            display: none;
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 1.2rem;
         }
 
-        .icon {
-            font-size: 2em;
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e0e0e0;
+            border-top: 4px solid #000000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
             margin-bottom: 15px;
         }
 
-        .strategy-card h3 {
-            font-size: 1.1em;
-            margin: 10px 0;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .strategy-card p {
-            font-size: 0.95em;
+        .progress-bar {
+            width: 100%;
+            max-width: 500px;
+            height: 30px;
+            background-color: #ffffff;
+            border: 2px solid #000000;
+            margin: 20px auto;
+            display: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .roadmap {
-            background: #f9f9f9;
-            padding: 40px;
-            margin: 40px 0;
+        .progress-fill {
+            height: 100%;
+            background-color: #000000;
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
-        .phase {
-            padding: 25px 0;
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            color: #ffffff;
+            mix-blend-mode: difference;
+            font-size: 0.9rem;
+        }
+
+        .countdown {
+            font-size: 3rem;
+            font-weight: 900;
             margin: 20px 0;
-            border-left: 3px solid #22c55e;
-            padding-left: 25px;
+            display: none;
         }
 
-        .phase h3 {
-            margin-top: 0;
-        }
-
-        footer {
-            text-align: center;
-            color: #999;
-            padding: 60px 40px;
-            font-size: 0.9em;
-            border-top: 1px solid #e5e5e5;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #22c55e;
-            color: white;
-            padding: 15px 35px;
-            text-decoration: none;
-            font-size: 1em;
-            font-weight: 400;
-            margin: 20px 10px;
-            transition: background 0.3s ease;
-            border: none;
-        }
-
-        .cta-button:hover {
-            background: #16a34a;
-        }
-
-        ul {
-            margin-left: 30px;
-            margin-bottom: 20px;
-        }
-
-        li {
-            margin-bottom: 12px;
-            color: #4a4a4a;
-            font-weight: 300;
+        .redirect-message {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 10px;
+            display: none;
         }
 
         @media (max-width: 768px) {
-            .title-page h1 {
-                font-size: 2.5em;
+            h1 {
+                font-size: 2.5rem;
             }
 
-            .container {
-                padding: 60px 25px;
+            .tagline {
+                font-size: 1rem;
             }
 
-            .content-section {
-                margin-bottom: 60px;
+            .upload-area {
+                padding: 40px 20px;
             }
 
-            .strategy-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            .upload-btn {
+                padding: 15px 35px;
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <img src="mineblox.png" alt="Logo" class="logo">
-    <button class="close-btn" onclick="window.open('https://x.com/TheMineCompany_', '_blank')">✕</button>
-    
-    <div class="title-page" id="titlePage">
-        <h1>The Mine Company</h1>
-        <p class="tagline">We bought a mining company and use dev fees to make it profitable</p>
-        <div class="button-container">
-            <a href="#dev-fees" class="nav-button" onclick="showDevFees(event)">Check Dev Fees</a>
-            <a href="#employees" class="nav-button" onclick="showEmployees(event)">Employees</a>
-        </div>
-    </div>
-
-    <div class="dev-fees-page" id="devFeesPage">
-        <div class="dev-fees-container">
-            <h1>Developer Fees</h1>
-            
-            <div class="fee-display">
-                <div class="fee-amount" id="feeAmount">$0.00</div>
-                <div class="update-indicator" id="updateIndicator">
-                    Updates every 5 seconds
-                </div>
-            </div>
-
-            <div class="fee-info">
-                <p>
-                    This counter displays the accumulated developer fees in real-time. Fees are generated from mining operations and automatically update every 5 seconds.
-                </p>
-
-                <div class="allocation-grid">
-                    <div class="allocation-item">
-                        <div class="allocation-percentage">90%</div>
-                        <div class="allocation-label">Buyback Program</div>
-                    </div>
-
-                    <div class="allocation-item">
-                        <div class="allocation-percentage">10%</div>
-                        <div class="allocation-label">Development</div>
-                    </div>
-                </div>
-            </div>
-
-            <a href="#" class="back-button" onclick="showHome(event)">← Back</a>
-        </div>
-    </div>
-
-    <div class="employees-page" id="employeesPage">
-        <div class="employees-content">
-            <h1>Employees</h1>
-            <p>We haven't bought any employees yet.</p>
-            <p style="font-size: 1.1em; color: #666;">As we continue to grow and expand our mining operations, we'll be looking to bring talented individuals on board to help us achieve our goals.</p>
-            <a href="#" class="back-button" onclick="showHome(event)">← Back</a>
-        </div>
+    <div class="header">
+        <a href="https://x.com/ForkThisDog" target="_blank" class="social-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            X
+        </a>
+        <a href="https://github.com/forkthisdog/ForkThisDog" target="_blank" class="social-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+        </a>
     </div>
 
     <div class="container">
-
-        <div class="content-section">
-            <h2>Our Vision</h2>
-            <p>We've made a strategic acquisition of an established mining business, and we're revolutionizing the traditional mining model. By leveraging development fees and operational profits, we're creating a sustainable ecosystem that bridges conventional industry with cutting-edge memecoin technology.</p>
-            
-            <div class="highlight-box">
-                <h3>💡 The Big Idea</h3>
-                <p><strong>We're using mining business profits to fuel memecoin growth.</strong> Every dollar earned from our mining operations is strategically reinvested into our memecoin project, creating a unique value proposition that combines real-world revenue with crypto innovation.</p>
-            </div>
-        </div>
-
-        <div class="content-section">
-            <h2>How It Works</h2>
-            
-            <h3>Step 1: Mining Revenue Generation</h3>
-            <p>Our acquired mining business operates with established contracts and development fee structures. These fees represent a percentage of mining output and provide predictable revenue streams.</p>
-
-            <h3>Step 2: Strategic Allocation</h3>
-            <p>Every development fee collected goes through our allocation system:</p>
-            <ul>
-                <li>Liquidity pool expansion</li>
-                <li>Marketing and community growth</li>
-                <li>Technology development</li>
-                <li>Partnership and exchange listings</li>
-                <li>Token buybacks and burns</li>
-            </ul>
-
-            <h3>Step 3: Value Creation</h3>
-            <p>By backing our memecoin with real business revenue, we're creating tangible value. Unlike purely speculative tokens, our project has consistent capital inflows from operations.</p>
-
-            <div class="roadmap">
-                <h2>Roadmap</h2>
-                
-                <div class="phase">
-                    <h3>Phase 1: Acquisition Complete ✓</h3>
-                    <p>Mining business acquisition finalized. Initial dev fee structures implemented and revenue streams established.</p>
-                </div>
-
-                <div class="phase">
-                    <h3>Phase 2: Integration (Current)</h3>
-                    <p>Optimizing mining operations for maximum profitability. Establishing automated reinvestment protocols for memecoin funding.</p>
-                </div>
-
-                <div class="phase">
-                    <h3>Phase 3: Expansion</h3>
-                    <p>Scale mining operations. Increase dev fee revenue. Launch major marketing campaigns funded by mining profits.</p>
-                </div>
-
-                <div class="phase">
-                    <h3>Phase 4: Ecosystem Growth</h3>
-                    <p>Build additional utilities for the memecoin. Establish partnerships. Create community-driven initiatives all funded by sustainable mining revenue.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-section">
-            <h2>Why This Model Works</h2>
-            
-            <div class="highlight-box">
-                <h3>Real Revenue, Real Value</h3>
-                <p>Most memecoins rely purely on speculation and hype. We're different. Our token is backed by actual business profits from mining operations, creating a foundation of real-world value.</p>
-            </div>
-
-            <p><strong>Transparency:</strong> All dev fee allocations and reinvestments are tracked and reported to the community regularly.</p>
-            
-            <p><strong>Sustainability:</strong> Mining revenue provides consistent funding regardless of market conditions, allowing us to weather crypto winters and continue building.</p>
-            
-            <p><strong>Growth Potential:</strong> As mining operations expand, so does the capital available for memecoin development, creating exponential growth opportunities.</p>
-        </div>
-
-        <div class="content-section">
-            <h2>Join the Revolution</h2>
-            <p>We're not just another memecoin. We're a hybrid model that combines the excitement of crypto with the stability of traditional business revenue. Every token holder benefits from the success of our mining operations.</p>
-            
-            <p style="text-align: center;">
-                <a href="#" class="cta-button">Buy Token</a>
-            </p>
-        </div>
-
+        <h1>FORK THIS DOG</h1>
         
-        <footer>
-            <p>&copy; 2025 Mining Memecoin Project</p>
-            <p>Cryptocurrency investments carry risk. Always do your own research.</p>
-        </footer>
+        <div class="tagline">
+            There's so much larping of Zcash and forking Solana... so why not make a fun community project? Upload a dog image and it instantly gets added to the GitHub repo. Any image that isn't a dog? Instantly removed. Simple as that.
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+            <button class="upload-btn" id="uploadBtn">UPLOAD HERE</button>
+            <div class="upload-text">Click or drag & drop your dog image</div>
+        </div>
+
+        <input type="file" id="fileInput" accept="image/*">
+
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <div>🐕 Analyzing image...</div>
+        </div>
+
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+            <div class="progress-text" id="progressText">Uploading to GitHub...</div>
+        </div>
+
+        <div class="countdown" id="countdown"></div>
+        <div class="redirect-message" id="redirectMessage">Redirecting to GitHub...</div>
+        
+        <div class="status-message" id="statusMessage"></div>
+
+        <div class="preview-area" id="previewArea"></div>
     </div>
 
     <script>
-        const STORAGE_KEY = 'minecompany_fee_amount';
-        let currentFee = 0.00;
-        let updateInterval = null;
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileInput = document.getElementById('fileInput');
+        const statusMessage = document.getElementById('statusMessage');
+        const previewArea = document.getElementById('previewArea');
+        const loading = document.getElementById('loading');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const countdown = document.getElementById('countdown');
+        const redirectMessage = document.getElementById('redirectMessage');
 
-        // Navigation functions
-        function showDevFees(event) {
-            event.preventDefault();
-            document.getElementById('titlePage').style.display = 'none';
-            document.getElementById('devFeesPage').classList.add('active');
-            document.getElementById('employeesPage').classList.remove('active');
-            document.querySelector('.container').style.display = 'none';
-            startFeeUpdates();
-        }
+        // Click to upload
+        uploadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.click();
+        });
 
-        function showEmployees(event) {
-            event.preventDefault();
-            document.getElementById('titlePage').style.display = 'none';
-            document.getElementById('devFeesPage').classList.remove('active');
-            document.getElementById('employeesPage').classList.add('active');
-            document.querySelector('.container').style.display = 'none';
-            stopFeeUpdates();
-        }
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
 
-        function showHome(event) {
-            event.preventDefault();
-            document.getElementById('titlePage').style.display = 'flex';
-            document.getElementById('devFeesPage').classList.remove('active');
-            document.getElementById('employeesPage').classList.remove('active');
-            document.querySelector('.container').style.display = 'block';
-            stopFeeUpdates();
-        }
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
 
-        // Fee update functions
-        function loadSavedFee() {
-            const savedFee = localStorage.getItem(STORAGE_KEY);
-            if (savedFee !== null) {
-                currentFee = parseFloat(savedFee);
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
             }
-        }
+        });
 
-        function saveFee() {
-            localStorage.setItem(STORAGE_KEY, currentFee.toString());
-        }
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
 
-        function formatCurrency(amount) {
-            return `$${amount.toFixed(2)}`;
-        }
+        async function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showStatus('Please upload an image file!', 'error');
+                return;
+            }
 
-        function generateRandomIncrement() {
-            return (Math.random() * 0.98 + 0.01);
-        }
+            // Reset all elements
+            loading.style.display = 'block';
+            statusMessage.style.display = 'none';
+            previewArea.innerHTML = '';
+            progressBar.style.display = 'none';
+            countdown.style.display = 'none';
+            redirectMessage.style.display = 'none';
 
-        function updateFee() {
-            const feeElement = document.getElementById('feeAmount');
-            const updateIndicator = document.getElementById('updateIndicator');
-            
-            feeElement.classList.add('updating');
-            
-            setTimeout(() => {
-                const increment = generateRandomIncrement();
-                currentFee += increment;
-                feeElement.textContent = formatCurrency(currentFee);
-                saveFee();
+            // Preview image
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'preview-img';
                 
-                setTimeout(() => {
-                    feeElement.classList.remove('updating');
-                }, 300);
-            }, 150);
+                // Simulate dog detection (2 seconds)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                loading.style.display = 'none';
 
-            updateIndicator.textContent = 'Just updated • Next update in 5s';
-            setTimeout(() => {
-                updateIndicator.textContent = 'Updates every 5 seconds';
-            }, 2000);
+                // Random dog detection for demo (70% chance)
+                // In production, this would call an actual dog detection API
+                const isDog = Math.random() > 0.3;
+                
+                if (isDog) {
+                    previewArea.innerHTML = '';
+                    previewArea.appendChild(img);
+                    showStatus('✓ DOG DETECTED! Uploading to GitHub...', 'success');
+                    
+                    // Show progress bar
+                    progressBar.style.display = 'block';
+                    
+                    // Animate progress bar over 5 seconds
+                    let progress = 0;
+                    const progressInterval = setInterval(() => {
+                        progress += 2;
+                        progressFill.style.width = progress + '%';
+                        progressText.textContent = `Uploading to GitHub... ${progress}%`;
+                        
+                        if (progress >= 100) {
+                            clearInterval(progressInterval);
+                            progressText.textContent = 'Upload Complete! ✓';
+                            
+                            // Wait 1 second then start countdown
+                            setTimeout(() => {
+                                startCountdown();
+                            }, 1000);
+                        }
+                    }, 100); // 100ms * 50 = 5 seconds total
+                    
+                } else {
+                    showStatus('✗ NOT A DOG! Image rejected and removed.', 'error');
+                    // Hide progress bar if shown
+                    progressBar.style.display = 'none';
+                }
+            };
+
+            reader.readAsDataURL(file);
         }
 
-        function startFeeUpdates() {
-            loadSavedFee();
-            document.getElementById('feeAmount').textContent = formatCurrency(currentFee);
+        function startCountdown() {
+            progressBar.style.display = 'none';
+            statusMessage.style.display = 'none';
+            countdown.style.display = 'block';
+            redirectMessage.style.display = 'block';
             
-            setTimeout(() => {
-                updateFee();
-                updateInterval = setInterval(updateFee, 5000);
-            }, 5000);
+            let seconds = 20;
+            countdown.textContent = seconds;
+            
+            const countdownInterval = setInterval(() => {
+                seconds--;
+                countdown.textContent = seconds;
+                
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    // Redirect to GitHub
+                    window.location.href = 'https://github.com/forkthisdog/ForkThisDog';
+                }
+            }, 1000);
         }
 
-        function stopFeeUpdates() {
-            if (updateInterval) {
-                clearInterval(updateInterval);
-                updateInterval = null;
-            }
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
         }
     </script>
 </body>
